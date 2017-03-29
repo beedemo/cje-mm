@@ -19,6 +19,7 @@ if (disableScript.exists()) {
     return
 }
 
+logger.info("running init_12_http_request_global_config script")
 def env = System.getenv()
 if(env['ES_AUTH_CREDENTIALS_ID'] != null) {
 
@@ -44,8 +45,10 @@ if(env['ES_AUTH_CREDENTIALS_ID'] != null) {
         logger.info("added es-auth Basic Digest Authentication for HttpRequestGlobalConfig")
 
     } else {
-        println "could not find credential for id ${esAuthCredentialsId}, skipping init_12_http_request_global_config"
+        logger.info("init_12_http_request_global_config: could not find credential for id ${esAuthCredentialsId}, skipping init_12_http_request_global_config")
     }
+} else {
+    logger.info("init_12_http_request_global_config: ES_AUTH_CREDENTIALS_ID not available")
 }
 //create marker file to disable script from running twice
 disableScript.createNewFile()
