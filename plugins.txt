@@ -1,0 +1,5 @@
+http_request
+pipeline-utility-steps:1.3.0
+docker-commons:1.4.0
+dockerhub-notification
+hipchat
