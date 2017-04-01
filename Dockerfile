@@ -1,5 +1,8 @@
 FROM cloudbees/cje-mm:2.32.3.1
 
+#
+ENV JAVA_OPTS -Dhudson.slaves.NodeProvisioner.initialDelay=0
+
 #skip setup wizard; per https://github.com/jenkinsci/docker/tree/master#preinstalling-plugins
 RUN echo 2.0 > /usr/share/jenkins/ref/jenkins.install.UpgradeWizard.state
 
