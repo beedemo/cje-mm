@@ -1,10 +1,13 @@
 FROM cloudbees/cje-mm:2.32.3.1
 
 #skip setup wizard
-#ENV JAVA_OPTS="-Djenkins.install.runSetupWizard=false"
-ENV JAVA_ARGS="-Djenkins.install.runSetupWizard=false"
-#JAVA_OPTS don't appear to propagate correctly, so also using JAVA_ARGS above
-ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
+ENV BEEDEMO_JAVA_OPTS -Djenkins.install.runSetupWizard=false
+
+USER root
+#override jenkins.sh to add BEEDEMO_JAVA_OPTS
+COPY jenkins.sh /usr/local/bin/jenkins.sh
+ARG user=jenkins
+USER ${user} 
 
 #install CloudBees suggested plugins
 COPY ./init.groovy.d/* /usr/share/jenkins/ref/init.groovy.d/
