@@ -3,6 +3,8 @@ FROM cloudbees/cje-mm:2.32.3.1
 #skip setup wizard
 #ENV JAVA_OPTS="-Djenkins.install.runSetupWizard=false"
 ENV JAVA_ARGS="-Djenkins.install.runSetupWizard=false"
+#JAVA_OPTS don't appear to propagate correctly, so also using JAVA_ARGS above
+ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
 
 #install CloudBees suggested plugins
 COPY ./init.groovy.d/* /usr/share/jenkins/ref/init.groovy.d/
