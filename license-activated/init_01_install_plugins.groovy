@@ -31,6 +31,12 @@ plugins.each { pluginName ->
 }
 
 disableScript.createNewFile()
-new File(Jenkins.getInstance().getRootDir(), ".restarted-flag").createNewFile()
-logger.info("restart after installing suggested plugins")
-Jenkins.getInstance().restart()
+//kickoff quickstart scripts not that plugins are installed
+def runQuickstartHook() {
+  ACL.impersonate(ACL.SYSTEM, new Runnable() {
+    @Override
+    public void run() {
+      new GroovyHookScript("quickstart").run();
+    }
+  });
+}
