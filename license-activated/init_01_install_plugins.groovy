@@ -15,6 +15,8 @@ if (disableScript.exists()) {
     return
 }
 
+logger.info("Installing Suggested CJE MM Plugins")
+
 Jenkins jenkins = Jenkins.getInstance()
 
 Path filePath = Paths.get('/var/jenkins_home/license-activated-or-renewed-after-expiration.groovy.d/cje_plugins.txt')
@@ -30,7 +32,6 @@ plugins.each { pluginName ->
   }
 }
 
-disableScript.createNewFile()
 //kickoff quickstart scripts not that plugins are installed
 def runQuickstartHook() {
   ACL.impersonate(ACL.SYSTEM, new Runnable() {
@@ -40,3 +41,5 @@ def runQuickstartHook() {
     }
   });
 }
+
+disableScript.createNewFile()
