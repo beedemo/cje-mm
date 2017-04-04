@@ -2,6 +2,7 @@ FROM cloudbees/cje-mm:2.32.3.1
 
 #skip setup wizard
 ENV BEEDEMO_JAVA_OPTS -Djenkins.install.runSetupWizard=false
+ENV JAVA_OPTS -Dhudson.slaves.NodeProvisioner.initialDelay=2
 
 USER root
 #override jenkins.sh to add BEEDEMO_JAVA_OPTS
