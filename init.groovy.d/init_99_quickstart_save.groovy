@@ -1,8 +1,5 @@
 import jenkins.model.Jenkins
 
-import hudson.security.ACL
-import jenkins.util.groovy.GroovyHookScript
-
 import java.util.logging.Logger
 
 Logger logger = Logger.getLogger("init.d init_99_quickstart_save.groovy")

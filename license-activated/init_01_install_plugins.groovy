@@ -3,6 +3,9 @@ import jenkins.model.Jenkins
 import java.nio.file.Path
 import java.nio.file.Paths
 
+import hudson.security.ACL
+import jenkins.util.groovy.GroovyHookScript
+
 import java.util.logging.Logger
 
 String scriptName = "init_01_install_plugins.groovy"
