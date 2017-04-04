@@ -1,3 +1,10 @@
+blueocean
+workflow-cps-global-lib
+http_request
+pipeline-utility-steps
+docker-commons
+dockerhub-notification
+hipchat
 cloudbees-support
 cloudbees-nodes-plus
 cloudbees-ssh-slaves
