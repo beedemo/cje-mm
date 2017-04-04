@@ -22,6 +22,7 @@ logger.info("Installing Suggested CJE MM Plugins")
 
 Jenkins jenkins = Jenkins.getInstance()
 
+/*
 Path filePath = Paths.get('/var/jenkins_home/license-activated-or-renewed-after-expiration.groovy.d/cje_plugins.txt')
 def plugins = filePath.toFile() as String[]
 def pm = Jenkins.instance.pluginManager
@@ -34,6 +35,7 @@ plugins.each { pluginName ->
       logger.info(ex.getMessage())
   }
 }
+*/
 
 //kickoff quickstart scripts not that plugins are installed
 ACL.impersonate(ACL.SYSTEM, new Runnable() {

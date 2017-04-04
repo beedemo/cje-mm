@@ -20,4 +20,4 @@ COPY plugins.txt plugins.txt
 COPY jenkins-support /usr/local/bin/jenkins-support
 COPY install-plugins.sh /usr/local/bin/install-plugins.sh
 
-#RUN /usr/local/bin/install-plugins.sh $(cat plugins.txt)
+RUN /usr/local/bin/install-plugins.sh $(cat plugins.txt)
