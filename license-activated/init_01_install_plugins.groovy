@@ -36,13 +36,11 @@ plugins.each { pluginName ->
 }
 
 //kickoff quickstart scripts not that plugins are installed
-def runQuickstartHook() {
-  ACL.impersonate(ACL.SYSTEM, new Runnable() {
+ACL.impersonate(ACL.SYSTEM, new Runnable() {
     @Override
     public void run() {
       new GroovyHookScript("quickstart").run();
     }
-  });
-}
+});
 
 disableScript.createNewFile()
