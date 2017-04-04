@@ -8,13 +8,12 @@ blueocean:1.0.0-rc1
 cloudbees-support
 cloudbees-nodes-plus
 cloudbees-ssh-slaves
-gradle
+gradle:1.25
 node-iterator-api
 operations-center-cloud
-aws-java-sdk
-aws-credentials
-infradna-backup
-cloudbees-ha
+aws-java-sdk:1.11.37
+aws-credentials:1.16
+infradna-backup:3.33
 cloudbees-monitoring
 cloudbees-template
 cloudbees-groovy-view
@@ -27,6 +26,6 @@ handlebars
 momentjs
 pipeline-stage-view
 cloudbees-workflow-ui
-pipeline-milestone-step
+pipeline-milestone-step:1.3
 wikitext
 ldap
