@@ -30,4 +30,3 @@ Besides the `Dockerfile`, the template consists of two primary customization com
 - `init_03_global_pipeline_library.groovy`: Configures a Pipeline Global Shared Library from this repository https://github.com/beedemo/workflowLibs
 - `init_04_pipeline_model-def_config.groovy`: Configures the agent label to be used for Pipeline Declarative Docker syntax
 - `init_12_http_request_global_config.groovy`: Creates Basic Digest Authentication entry for HttpRequest plugin for use with the Pipeline External shared libraries - REQUIRES environment variable `ES_AUTH_CREDENTIALS_ID` to be set to Jenkins Credential ID for Elasticsearch
-
