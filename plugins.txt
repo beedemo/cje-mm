@@ -1,5 +1,5 @@
-pipeline-model-extensions:1.1.2
 pipeline-model-api:1.1.2
+pipeline-model-extensions:1.1.2
 pipeline-model-declarative-agent:1.1.1
 pipeline-stage-tags-metadata:1.1.2
 pipeline-model-definition:1.1.2
@@ -10,6 +10,7 @@ docker-commons:1.4.0
 dockerhub-notification
 hipchat
 blueocean:1.0.0
+blueocean-pipeline-editor:0.2.0
 cloudbees-support
 cloudbees-nodes-plus
 cloudbees-ssh-slaves
