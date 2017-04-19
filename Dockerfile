@@ -1,4 +1,4 @@
-FROM cloudbees/cje-mm:2.32.3.1
+FROM cloudbees/cje-mm:2.32.3.2
 
 #skip setup wizard
 ENV BEEDEMO_JAVA_OPTS -Djenkins.install.runSetupWizard=false

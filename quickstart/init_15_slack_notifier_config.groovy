@@ -16,11 +16,11 @@ logger.info("begin slack notifier config")
 
 def desc = j.getDescriptor("jenkins.plugins.slack.SlackNotifier")
 
-desc.setTeamDomain("beedemo-team")
-desc.setRoom("#ci")
-desc.setAuthTokenCredentialId("beedemo-slack-token")
-
-desc.save()
+    slack = j.getDescriptorByType(jenkins.plugins.slack.SlackNotifier.DescriptorImpl)
+    slack.teamDomain = "beedemo-team"
+    slack.tokenCredentialId = "beedemo-slack-token"
+    slack.room = "#ci"
+    slack.save()
 
 logger.info("configured slack notifier")
 
