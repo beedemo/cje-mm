@@ -10,8 +10,8 @@ docker-commons
 dockerhub-notification
 hipchat
 slack
-blueocean
-blueocean-pipeline-editor
+blueocean:1.0.1
+blueocean-pipeline-editor:0.2.0
 cloudbees-support
 cloudbees-nodes-plus
 cloudbees-ssh-slaves
