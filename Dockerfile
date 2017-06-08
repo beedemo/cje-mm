@@ -1,8 +1,8 @@
-FROM cloudbees/cje-mm:2.46.2.1
+FROM cloudbees/cje-mm:2.46.3.2
 LABEL maintainer "kmadel@cloudbees.com"
 
 #skip setup wizard
-ENV BEEDEMO_JAVA_OPTS -Djenkins.install.runSetupWizard=false -Djenkins.CLI.disabled=true -server -XX:+AlwaysPreTouch -XX:+UseConcMarkSweepGC -XX:+ExplicitGCInvokesConcurrentAndUnloadsClasses -XX:+CMSParallelRemarkEnabled -XX:+ParallelRefProcEnabled -XX:+CMSClassUnloadingEnabled -XX:+ScavengeBeforeFullGC -XX:+CMSScavengeBeforeRemark -XX:NewSize=512m -Djenkins.model.Jenkins.logStartupPerformance=true
+ENV BEEDEMO_JAVA_OPTS -Djenkins.install.runSetupWizard=false -Djenkins.CLI.disabled=true -server
 
 USER root
 #override jenkins.sh to add BEEDEMO_JAVA_OPTS
