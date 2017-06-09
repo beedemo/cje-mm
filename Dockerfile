@@ -1,12 +1,9 @@
 FROM cloudbees/cje-mm:2.46.3.2
 LABEL maintainer "kmadel@cloudbees.com"
 
-#skip setup wizard
-ENV BEEDEMO_JAVA_OPTS -Djenkins.install.runSetupWizard=false -Djenkins.CLI.disabled=true -server
+#skip setup wizard and disable CLI
+ENV JVM_OPTS -Djenkins.install.runSetupWizard=false -Djenkins.CLI.disabled=true -server
 
-USER root
-#override jenkins.sh to add BEEDEMO_JAVA_OPTS
-COPY jenkins.sh /usr/local/bin/jenkins.sh
 ARG user=jenkins
 USER ${user} 
 
