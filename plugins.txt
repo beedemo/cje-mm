@@ -37,7 +37,6 @@ operations-center-client:2.46.0.4
 tiger-tenant:1.0.13
 palace-cloud:1.6.4
 pse-cje-client-license:1.6.3
-workflow-step-api:2.9
 plain-credentials:1.4
 credentials-binding:1.11
 pipeline-model-api:1.1.4
