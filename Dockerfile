@@ -2,7 +2,7 @@ FROM cloudbees/cje-mm:2.60.1.1
 LABEL maintainer "kmadel@cloudbees.com"
 
 #skip setup wizard and disable CLI
-ENV JVM_OPTS -Djenkins.install.runSetupWizard=false
+ENV JVM_OPTS -Djenkins.install.runSetupWizard=false -Djenkins.CLI.disabled=true -server
 ENV TZ="/usr/share/zoneinfo/America/New_York"
 
 #Jenkins system configuration via init groovy scripts - see https://wiki.jenkins-ci.org/display/JENKINS/Configuring+Jenkins+upon+start+up 
