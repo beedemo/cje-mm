@@ -1,4 +1,4 @@
-FROM cloudbees/cje-mm:2.60.2.1
+FROM cloudbees/cje-mm:2.60.3.1
 LABEL maintainer "kmadel@cloudbees.com"
 
 #skip setup wizard and disable CLI
