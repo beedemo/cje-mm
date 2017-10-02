@@ -1,4 +1,4 @@
-FROM cloudbees/cje-mm:2.60.3.1
+FROM cloudbees/cje-mm:2.73.1.2
 
 LABEL maintainer "kmadel@cloudbees.com"
 
