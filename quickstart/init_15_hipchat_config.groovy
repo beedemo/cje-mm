@@ -14,9 +14,9 @@ if (disableScript.exists()) {
 
 logger.info("begin hipchat config")
 
-def desc = j.getDescriptor("jenkins.plugins.hipcaht.HipChatNotifier")
+def desc = j.getDescriptor("jenkins.plugins.hipchat.HipChatNotifier")
 
-    hipchat = j.getDescriptorByType(jenkins.plugins.hipcaht.HipChatNotifier.DescriptorImpl)
+    hipchat = j.getDescriptorByType(jenkins.plugins.hipchat.HipChatNotifier.DescriptorImpl)
     hipchat.server = "cloudbees.hipchat.com"
     hipchat.v2Enabled = true
     hipchat.credentialId = "hipchat-sa-demo-environment"
