@@ -44,122 +44,94 @@ if(masterName != null) {
 
         println "--> creating $jobName"
         def jobConfigXml = """
-        <jenkins.branch.OrganizationFolder plugin="branch-api@1.11">
-          <displayName>$jobName</displayName>
+        <jenkins.branch.OrganizationFolder plugin="branch-api@2.0.11">
+          <actions>
+            <io.jenkins.blueocean.service.embedded.BlueOceanUrlAction plugin="blueocean-rest-impl@1.3.3">
+              <blueOceanUrlObject class="io.jenkins.blueocean.service.embedded.BlueOceanUrlObjectImpl">
+                <mappedUrl>blue/organizations/jenkins/pipelines/</mappedUrl>
+                <modelObject class="jenkins.branch.OrganizationFolder" reference="../../../.."/>
+              </blueOceanUrlObject>
+            </io.jenkins.blueocean.service.embedded.BlueOceanUrlAction>
+          </actions>
+          <description/>
           <properties>
-            <com.cloudbees.hudson.plugins.folder.properties.EnvVarsFolderProperty plugin="cloudbees-folders-plus@3.0">
+            <com.cloudbees.hudson.plugins.folder.properties.EnvVarsFolderProperty plugin="cloudbees-folders-plus@3.3">
               <properties/>
             </com.cloudbees.hudson.plugins.folder.properties.EnvVarsFolderProperty>
-            <org.jenkinsci.plugins.workflow.libs.FolderLibraries plugin="workflow-cps-global-lib@2.4">
-            <libraries>
-            <org.jenkinsci.plugins.workflow.libs.LibraryConfiguration>
-            <name>BeedemoLibs</name>
-            <retriever class="org.jenkinsci.plugins.workflow.libs.SCMRetriever">
-            <scm class="hudson.plugins.git.GitSCM" plugin="git@2.5.3">
-            <configVersion>2</configVersion>
-            <userRemoteConfigs>
-            <hudson.plugins.git.UserRemoteConfig>
-            <url>https://github.com/beedemo/workflowLibs.git</url>
-            <credentialsId>beedemo-user-github-token</credentialsId>
-            </hudson.plugins.git.UserRemoteConfig>
-            </userRemoteConfigs>
-            <branches>
-            <hudson.plugins.git.BranchSpec>
-            <name>\${library.BeedemoLibs.version}</name>
-            </hudson.plugins.git.BranchSpec>
-            </branches>
-            <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
-            <submoduleCfg class="list"/>
-            <extensions/>
-            </scm>
-            </retriever>
-            <defaultVersion>master</defaultVersion>
-            <implicit>true</implicit>
-            <allowVersionOverride>true</allowVersionOverride>
-            </org.jenkinsci.plugins.workflow.libs.LibraryConfiguration>
-            </libraries>
-            </org.jenkinsci.plugins.workflow.libs.FolderLibraries>
+            <org.jenkinsci.plugins.pipeline.modeldefinition.config.FolderConfig plugin="pipeline-model-definition@1.2.2">
+              <dockerLabel/>
+              <registry plugin="docker-commons@1.9"/>
+            </org.jenkinsci.plugins.pipeline.modeldefinition.config.FolderConfig>
             <jenkins.branch.NoTriggerOrganizationFolderProperty>
               <branches>.*</branches>
             </jenkins.branch.NoTriggerOrganizationFolderProperty>
           </properties>
-          <views>
-            <hudson.model.ListView>
-              <owner class="jenkins.branch.OrganizationFolder" reference="../../.."/>
-              <name>Repositories</name>
-              <filterExecutors>false</filterExecutors>
-              <filterQueue>false</filterQueue>
-              <properties class="hudson.model.View\$PropertyList"/>
-              <jobNames>
-                <comparator class="hudson.util.CaseInsensitiveComparator"/>
-              </jobNames>
-              <jobFilters/>
-              <columns>
-                <hudson.views.StatusColumn/>
-                <hudson.views.WeatherColumn/>
-                <org.jenkinsci.plugins.orgfolder.github.CustomNameJobColumn plugin="github-organization-folder@1.5">
-                  <bundle>org.jenkinsci.plugins.orgfolder.github.Messages</bundle>
-                  <key>ListViewColumn.Repository</key>
-                </org.jenkinsci.plugins.orgfolder.github.CustomNameJobColumn>
-                <org.jenkinsci.plugins.orgfolder.github.RepositoryDescriptionColumn plugin="github-organization-folder@1.5"/>
-              </columns>
-              <includeRegex>.*</includeRegex>
-              <recurse>false</recurse>
-            </hudson.model.ListView>
-          </views>
-          <viewsTabBar class="hudson.views.DefaultViewsTabBar"/>
-          <primaryView>Repositories</primaryView>
+          <folderViews class="jenkins.branch.OrganizationFolderViewHolder">
+            <owner reference="../.."/>
+          </folderViews>
           <healthMetrics>
-            <com.cloudbees.hudson.plugins.folder.health.WorstChildHealthMetric plugin="cloudbees-folder@5.13"/>
-            <com.cloudbees.hudson.plugins.folder.health.AverageChildHealthMetric plugin="cloudbees-folders-plus@3.0"/>
-            <com.cloudbees.hudson.plugins.folder.health.JobStatusHealthMetric plugin="cloudbees-folders-plus@3.0">
+            <com.cloudbees.hudson.plugins.folder.health.WorstChildHealthMetric plugin="cloudbees-folder@6.1.2">
+              <nonRecursive>false</nonRecursive>
+            </com.cloudbees.hudson.plugins.folder.health.WorstChildHealthMetric>
+            <com.cloudbees.hudson.plugins.folder.health.AverageChildHealthMetric plugin="cloudbees-folders-plus@3.3"/>
+            <com.cloudbees.hudson.plugins.folder.health.JobStatusHealthMetric plugin="cloudbees-folders-plus@3.3">
               <success>true</success>
               <failure>true</failure>
               <unstable>true</unstable>
               <unbuilt>true</unbuilt>
               <countVirginJobs>false</countVirginJobs>
             </com.cloudbees.hudson.plugins.folder.health.JobStatusHealthMetric>
-            <com.cloudbees.hudson.plugins.folder.health.ProjectEnabledHealthMetric plugin="cloudbees-folders-plus@3.0"/>
+            <com.cloudbees.hudson.plugins.folder.health.ProjectEnabledHealthMetric plugin="cloudbees-folders-plus@3.3"/>
           </healthMetrics>
-          <icon class="org.jenkinsci.plugins.orgfolder.github.GitHubOrgIcon" plugin="github-organization-folder@1.5">
-            <folder class="jenkins.branch.OrganizationFolder" reference="../.."/>
+          <icon class="jenkins.branch.MetadataActionFolderIcon">
+            <owner class="jenkins.branch.OrganizationFolder" reference="../.."/>
           </icon>
-          <orphanedItemStrategy class="com.cloudbees.hudson.plugins.folder.computed.DefaultOrphanedItemStrategy" plugin="cloudbees-folder@5.13">
+          <orphanedItemStrategy class="com.cloudbees.hudson.plugins.folder.computed.DefaultOrphanedItemStrategy" plugin="cloudbees-folder@6.1.2">
             <pruneDeadBranches>true</pruneDeadBranches>
-            <daysToKeep>0</daysToKeep>
-            <numToKeep>0</numToKeep>
+            <daysToKeep>-1</daysToKeep>
+            <numToKeep>-1</numToKeep>
           </orphanedItemStrategy>
           <triggers>
-            <com.cloudbees.hudson.plugins.folder.computed.PeriodicFolderTrigger plugin="cloudbees-folder@5.13">
+            <com.cloudbees.hudson.plugins.folder.computed.PeriodicFolderTrigger plugin="cloudbees-folder@6.1.2">
               <spec>H H * * *</spec>
-              <interval>86400000</interval>
+              <interval>604800000</interval>
             </com.cloudbees.hudson.plugins.folder.computed.PeriodicFolderTrigger>
           </triggers>
+          <disabled>false</disabled>
           <navigators>
-            <org.jenkinsci.plugins.github__branch__source.GitHubSCMNavigator plugin="github-branch-source@1.10">
+            <org.jenkinsci.plugins.github__branch__source.GitHubSCMNavigator plugin="github-branch-source@2.2.6">
               <repoOwner>$jobName</repoOwner>
-              <scanCredentialsId>$scanCredentialsId</scanCredentialsId>
-              <checkoutCredentialsId>SAME</checkoutCredentialsId>
-              <pattern>.*</pattern>
-              <buildOriginBranch>true</buildOriginBranch>
-              <buildOriginBranchWithPR>true</buildOriginBranchWithPR>
-              <buildOriginPRMerge>false</buildOriginPRMerge>
-              <buildOriginPRHead>false</buildOriginPRHead>
-              <buildForkPRMerge>true</buildForkPRMerge>
-              <buildForkPRHead>false</buildForkPRHead>
+              <credentialsId>$credentialsId</credentialsId>
+              <traits>
+                <org.jenkinsci.plugins.github__branch__source.BranchDiscoveryTrait>
+                  <strategyId>1</strategyId>
+                </org.jenkinsci.plugins.github__branch__source.BranchDiscoveryTrait>
+                <org.jenkinsci.plugins.github__branch__source.OriginPullRequestDiscoveryTrait>
+                  <strategyId>1</strategyId>
+                </org.jenkinsci.plugins.github__branch__source.OriginPullRequestDiscoveryTrait>
+                <org.jenkinsci.plugins.github__branch__source.ForkPullRequestDiscoveryTrait>
+                  <strategyId>1</strategyId>
+                  <trust class="org.jenkinsci.plugins.github_branch_source.ForkPullRequestDiscoveryTrait$TrustContributors"/>
+                </org.jenkinsci.plugins.github__branch__source.ForkPullRequestDiscoveryTrait>
+              </traits>
             </org.jenkinsci.plugins.github__branch__source.GitHubSCMNavigator>
           </navigators>
           <projectFactories>
-            <org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProjectFactory plugin="workflow-multibranch@2.9"/>
-            <com.cloudbees.workflow.multibranch.CustomMultiBranchProjectFactory plugin="cloudbees-workflow-template@2.4">
+            <org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProjectFactory plugin="workflow-multibranch@2.16">
+              <scriptPath>Jenkinsfile</scriptPath>
+            </org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProjectFactory>
+            <com.cloudbees.workflow.multibranch.CustomMultiBranchProjectFactory plugin="cloudbees-workflow-template@2.7">
               <factory>
                 <marker>pom.xml</marker>
-                <definition class="org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition" plugin="workflow-cps@2.17">
-                  <scm class="hudson.plugins.git.GitSCM" plugin="git@2.5.3">
+                <definition class="org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition" plugin="workflow-cps@2.41">
+                  <scm class="hudson.plugins.git.GitSCM" plugin="git@3.6.4">
                     <configVersion>2</configVersion>
                     <userRemoteConfigs>
                       <hudson.plugins.git.UserRemoteConfig>
-                        <url>https://github.com/beedemo/custom-marker-pipelines.git</url>
+                        <url>
+        https://github.com/beedemo/custom-marker-pipelines.git
+        </url>
+                        <credentialsId>beedemo-user-github-token</credentialsId>
                       </hudson.plugins.git.UserRemoteConfig>
                     </userRemoteConfigs>
                     <branches>
@@ -172,18 +144,22 @@ if(masterName != null) {
                     <extensions/>
                   </scm>
                   <scriptPath>pom-Jenkinsfile</scriptPath>
+                  <lightweight>true</lightweight>
                 </definition>
               </factory>
             </com.cloudbees.workflow.multibranch.CustomMultiBranchProjectFactory>
-            <com.cloudbees.workflow.multibranch.CustomMultiBranchProjectFactory plugin="cloudbees-workflow-template@2.4">
+            <com.cloudbees.workflow.multibranch.CustomMultiBranchProjectFactory plugin="cloudbees-workflow-template@2.7">
               <factory>
                 <marker>Dockerfile</marker>
-                <definition class="org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition" plugin="workflow-cps@2.17">
-                  <scm class="hudson.plugins.git.GitSCM" plugin="git@2.5.3">
+                <definition class="org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition" plugin="workflow-cps@2.41">
+                  <scm class="hudson.plugins.git.GitSCM" plugin="git@3.6.4">
                     <configVersion>2</configVersion>
                     <userRemoteConfigs>
                       <hudson.plugins.git.UserRemoteConfig>
-                        <url>https://github.com/beedemo/custom-marker-pipelines.git</url>
+                        <url>
+        https://github.com/beedemo/custom-marker-pipelines.git
+        </url>
+                        <credentialsId>beedemo-user-github-token</credentialsId>
                       </hudson.plugins.git.UserRemoteConfig>
                     </userRemoteConfigs>
                     <branches>
@@ -196,6 +172,7 @@ if(masterName != null) {
                     <extensions/>
                   </scm>
                   <scriptPath>Dockerfile-Jenkinsfile</scriptPath>
+                  <lightweight>true</lightweight>
                 </definition>
               </factory>
             </com.cloudbees.workflow.multibranch.CustomMultiBranchProjectFactory>
