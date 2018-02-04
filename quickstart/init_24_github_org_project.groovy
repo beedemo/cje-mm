@@ -194,6 +194,8 @@ if(masterName != null) {
                         }
                     });
         logger.info("created $jobName")
+        //saving job again to create webhook - not sure why it isn't created on initial save
+        job.save()
     } else {
         logger.info("System property MASTER_NAME does not match UsernamePassword credential id for init_24_github_org_project script - skipping GitHub Org Folder creation")
     }
