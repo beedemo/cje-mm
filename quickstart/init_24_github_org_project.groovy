@@ -7,6 +7,10 @@ import jenkins.scm.api.SCMSourceOwner;
 import jenkins.scm.api.SCMSourceOwners;
 import org.jenkinsci.plugins.github_branch_source.GitHubSCMNavigator;
 
+import com.cloudbees.plugins.credentials.CredentialsProvider
+import com.cloudbees.plugins.credentials.common.StandardUsernamePasswordCredentials
+import com.cloudbees.plugins.credentials.CredentialsMatchers
+
 import java.util.logging.Logger
 
 Logger logger = Logger.getLogger("init_24_github_org_project.groovy")

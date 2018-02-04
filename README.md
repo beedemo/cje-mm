@@ -12,9 +12,9 @@ The image is configured to skip Jenkins 2 Setup Wizard, install all of the Cloud
 #### Plugins installed:
 See the [`plugins.txt`](plugins.txt) file to see all the plugins that get installed - some *non-CJE standard plugins* highlights include:
 
-- Blue Ocean with the Blue Ocean Pipeline Editor
+- [Blue Ocean with the Blue Ocean Pipeline Editor](https://jenkins.io/doc/book/blueocean/)
 - HipChat plugin
-- Slack plugin
+- [Pipeline Utilities plugin](https://jenkins.io/doc/pipeline/steps/pipeline-utility-steps/)
 
 Note, the `install-plugins.sh` script will download the specified plugins and their dependencies at build time and include them in the image; it also inspects the Jenkins WAR and skips any plugins already included by CloudBees (embedded in the WAR).
 
@@ -30,4 +30,6 @@ Note, the `install-plugins.sh` script will download the specified plugins and th
 - `init_04_pipeline_model-def_config.groovy`: Configures the agent label to be used for Pipeline Declarative Docker syntax. This is not documented very well, but there is a global and per folder setting to tell Declarative Pipeline what Jenkins agent `label` to use when using the `` syntax - to ensure that the underlying Pipeline Model Definition will be able to spin up the Docker image to use *inside* the agent.
 - `init_07_palace_one_shot_config.groovy`: CJE includes an awesome Share Agent Cloud provisioner called [Palace](https://go.cloudbees.com/docs/cloudbees-documentation/pse-admin-guide/index.html#building). One of the features of Palace is to use the [One Shot Executor Strategy](https://github.com/jenkinsci/one-shot-executor-plugin), but because that strategy does not support Pipeline resumption, it is disabled by default. This script enables it by default - because it makes agent provisioning super fast!
 - `init_12_http_request_global_config.groovy`: Creates Basic Digest Authentication entry for HttpRequest plugin for use with the Pipeline External shared libraries - REQUIRES environment variable `ES_AUTH_CREDENTIALS_ID` to be set to Jenkins Credential ID for Elasticsearch
-- `init_15_slack_notifier_config.groovy`: Configures the global settings for the Slack Notification plugin so the Managed Master will be able to send notifications to the Slack #ci channel of the beedemo-team sub-domain.
+- `init_15_hipchat_config.groovy`: Configures the global settings for the HipChat Notification plugin so the Managed Master will be able to send notifications to the designated Beedemo HipChat channel.
+- `init_20_agent_protocol_config.groovy`: Disables all but the JNLP-4 protocol.
+- `init_24_github_org_project.groovy`: Creates a Pipeline GitHub Org Folder if certain conditions are met.
