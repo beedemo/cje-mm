@@ -37,11 +37,9 @@ if(masterName != null) {
 
     cred = CredentialsMatchers.firstOrNull(candidates, CredentialsMatchers.withId(credentialsId))
     if ( cred ) {
-
-        logger.info("env variable GITHUB_ORG set for init_24_github_org_project script - creating GitHub Org Folder for " + env['GITHUB_ORG'])
         def jobName = cred.description
-        def scanCredentialsId = masterName
-
+        logger.info("using credential description $jobName for GitHub Org name in init_24_github_org_project script - creating GitHub Org Folder")
+        
         println "--> creating $jobName"
         def jobConfigXml = """
         <jenkins.branch.OrganizationFolder plugin="branch-api@2.0.11">
@@ -111,7 +109,7 @@ if(masterName != null) {
                 </org.jenkinsci.plugins.github__branch__source.OriginPullRequestDiscoveryTrait>
                 <org.jenkinsci.plugins.github__branch__source.ForkPullRequestDiscoveryTrait>
                   <strategyId>1</strategyId>
-                  <trust class="org.jenkinsci.plugins.github_branch_source.ForkPullRequestDiscoveryTrait$TrustContributors"/>
+                  <trust class="org.jenkinsci.plugins.github_branch_source.ForkPullRequestDiscoveryTrait\$TrustContributors"/>
                 </org.jenkinsci.plugins.github__branch__source.ForkPullRequestDiscoveryTrait>
               </traits>
             </org.jenkinsci.plugins.github__branch__source.GitHubSCMNavigator>
