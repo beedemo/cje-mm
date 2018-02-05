@@ -177,8 +177,17 @@ if(masterName != null) {
           </projectFactories>
         </jenkins.branch.OrganizationFolder>
         """
-
-        job = j.createProjectFromXML(jobName, new ByteArrayInputStream(jobConfigXml.getBytes("UTF-8")));
+        //need to check for: cb.IMProp.warProfiles	bluesteel-core.json and move to bluesteel master folder for jobs to show up in Blue Ocean view
+        if(System.properties.'cb.IMProp.warProfiles' == 'luesteel-core.json') {
+            def folder = j.getItemByFullName(masterName)
+            if (folder == null) {
+              println "ERROR: Folder '$masterName' not found"
+              return
+            }
+            job = folder.createProjectFromXML(jobName, new ByteArrayInputStream(jobConfigXml.getBytes("UTF-8")));
+        } else {
+            job = j.createProjectFromXML(jobName, new ByteArrayInputStream(jobConfigXml.getBytes("UTF-8")));
+        }
         job.save()
         //the following will actually kickoff the initial scanning
         ACL.impersonate(ACL.SYSTEM, new Runnable() {
