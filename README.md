@@ -32,6 +32,8 @@ Note, the `install-plugins.sh` script will download the specified plugins and th
 - `init_12_http_request_global_config.groovy`: Creates Basic Digest Authentication entry for HttpRequest plugin for use with the Pipeline External shared libraries - REQUIRES environment variable `ES_AUTH_CREDENTIALS_ID` to be set to Jenkins Credential ID for Elasticsearch
 - `init_15_hipchat_config.groovy`: Configures the global settings for the HipChat Notification plugin so the Managed Master will be able to send notifications to the designated Beedemo HipChat channel.
 - `init_20_agent_protocol_config.groovy`: Disables all but the JNLP-4 protocol.
+
+##### Dynamic Creation of GitHub Org Folder 
 - `init_24_github_org_project.groovy`: Creates a Pipeline GitHub Org Folder if certain conditions are met.
     - A username/password credential with an id matching the name of the master you are creating exists on CJOC (NOTE: if using Team Masters the GitHub Org foler will be created in the Blue Steel folder with the same name as the Team Master)
     - Set the description of the credential to be the name of the GitHub Org - NOTE: the username/password (actually username and user access token) credential set must have the correct permissions for the GitHub Org specified
