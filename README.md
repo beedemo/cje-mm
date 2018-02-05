@@ -33,5 +33,5 @@ Note, the `install-plugins.sh` script will download the specified plugins and th
 - `init_15_hipchat_config.groovy`: Configures the global settings for the HipChat Notification plugin so the Managed Master will be able to send notifications to the designated Beedemo HipChat channel.
 - `init_20_agent_protocol_config.groovy`: Disables all but the JNLP-4 protocol.
 - `init_24_github_org_project.groovy`: Creates a Pipeline GitHub Org Folder if certain conditions are met.
-    - Create a username/password credential with an id matching the name of the master you are creating (note - if using Team Masters it must include the teams prefix)
-    - Set the description of the credential to be the name of the GitHub Org - the username/password (actually username and user access token) must have the correct permissions for the GitHub Org specified
+    - A username/password credential with an id matching the name of the master you are creating exists on CJOC (NOTE: if using Team Masters the GitHub Org foler will be created in the Blue Steel folder with the same name as the Team Master)
+    - Set the description of the credential to be the name of the GitHub Org - NOTE: the username/password (actually username and user access token) credential set must have the correct permissions for the GitHub Org specified
