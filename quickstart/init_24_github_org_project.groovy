@@ -25,6 +25,8 @@ if (disableScript.exists()) {
 
 def masterName = System.properties.'MASTER_NAME'
 if(masterName != null) {
+    def cbWarProfile = System.properties.'cb.IMProp.warProfiles'
+    logger.info("init_24_github_org_project cb.IMProp.warProfiles=$cbWarProfile")
 
     def credentialsId = masterName
 
@@ -178,7 +180,7 @@ if(masterName != null) {
         </jenkins.branch.OrganizationFolder>
         """
         //need to check for: cb.IMProp.warProfiles	bluesteel-core.json and move to bluesteel master folder for jobs to show up in Blue Ocean view
-        if(System.properties.'cb.IMProp.warProfiles' == 'luesteel-core.json') {
+        if(cbWarProfile == 'bluesteel-core.json') {
             def folder = j.getItemByFullName(masterName)
             if (folder == null) {
               println "ERROR: Folder '$masterName' not found"
