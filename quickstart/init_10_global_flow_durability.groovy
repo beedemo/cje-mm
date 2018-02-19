@@ -10,7 +10,7 @@ Logger logger = Logger.getLogger("init_10_global_flow_durability.groovy")
 
 def jenkins = Jenkins.instance
 
-File disableScript = new File(j.rootDir, ".disable-init_10_global_flow_durability")
+File disableScript = new File(jenkins.rootDir, ".disable-init_10_global_flow_durability")
 if (disableScript.exists()) {
     logger.info("DISABLED init_10_global_flow_durability script")
     return
