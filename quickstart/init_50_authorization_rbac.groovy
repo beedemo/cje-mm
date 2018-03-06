@@ -215,7 +215,7 @@ if (AuthorizationStrategy.UNSECURED.equals(authorizationStrategy)) {
      logger.info("created $jobName")
      
      jobName = "workshop"
-     obConfigXml = """
+     jobConfigXml = """
      <com.cloudbees.hudson.plugins.folder.Folder plugin="cloudbees-folder@6.3">
        <actions/>
        <description></description>
