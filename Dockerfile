@@ -1,6 +1,7 @@
 FROM cloudbees/cje-mm:2.89.4.2
 
 LABEL maintainer "kmadel@cloudbees.com"
+LABEL JENKINS_VERSION "2.89.4.2"
 
 #skip setup wizard and disable CLI
 ENV JVM_OPTS -Djenkins.install.runSetupWizard=false -Djenkins.CLI.disabled=true -server
