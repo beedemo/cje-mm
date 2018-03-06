@@ -184,7 +184,7 @@ if (AuthorizationStrategy.UNSECURED.equals(authorizationStrategy)) {
      &lt;name&gt;All&lt;/name&gt;
      &lt;filterExecutors&gt;false&lt;/filterExecutors&gt;
      &lt;filterQueue&gt;false&lt;/filterQueue&gt;
-     &lt;properties class=&quot;hudson.model.View\$PropertyList&quot;/&gt;
+     &lt;properties class=&quot;hudson.model.View\\$PropertyList&quot;/&gt;
      &lt;/hudson.model.AllView&gt;
      &lt;/views&gt;
      &lt;tabBar class=&quot;hudson.views.DefaultViewsTabBar&quot;/&gt;
