@@ -95,10 +95,6 @@ if (AuthorizationStrategy.UNSECURED.equals(authorizationStrategy)) {
      g.setMembers(Collections.singletonList("admin"));
      g.setRoleAssignments(Collections.singletonList(new Group.RoleAssignment(ROLE_ADMINISTER)));
      rootGroups.add(g);
-     g = new Group("Developers");
-     // no members by default
-     g.setRoleAssignments(Collections.singletonList(new Group.RoleAssignment(ROLE_DEVELOP)));
-     rootGroups.add(g);
      g = new Group("Browsers");
      g.setMembers(Collections.singletonList("authenticated"));
      g.setRoleAssignments(Collections.singletonList(new Group.RoleAssignment(ROLE_BROWSE)));
@@ -159,7 +155,7 @@ if (AuthorizationStrategy.UNSECURED.equals(authorizationStrategy)) {
        <icon class="com.cloudbees.hudson.plugins.folder.icons.StockFolderIcon"/>
      </com.cloudbees.hudson.plugins.folder.Folder>
      """
-     folder = j.createProjectFromXML(jobName, new ByteArrayInputStream(jobConfigXml.getBytes("UTF-8")));
+     folder = jenkins.createProjectFromXML(jobName, new ByteArrayInputStream(jobConfigXml.getBytes("UTF-8")));
      folder.save()
      logger.info("created $jobName")
 } else {
