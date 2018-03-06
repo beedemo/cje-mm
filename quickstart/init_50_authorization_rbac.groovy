@@ -104,8 +104,118 @@ if (AuthorizationStrategy.UNSECURED.equals(authorizationStrategy)) {
      matrixAuthorizationPlugin.configuration = config
      matrixAuthorizationPlugin.save()
      logger.info("RBAC Roles and Groups defined")
-     def jobName = "workshop"
+     
+     def jobName = "dev-folder"
      def jobConfigXml = """
+     <com.cloudbees.hudson.plugins.modeling.impl.folder.FolderTemplate plugin="cloudbees-template@4.35">
+       <actions>
+         <io.jenkins.blueocean.service.embedded.BlueOceanUrlAction plugin="blueocean-rest-impl@1.4.2">
+           <blueOceanUrlObject class="io.jenkins.blueocean.service.embedded.BlueOceanUrlObjectImpl">
+             <mappedUrl>blue/organizations/jenkins/pipelines/</mappedUrl>
+           </blueOceanUrlObject>
+         </io.jenkins.blueocean.service.embedded.BlueOceanUrlAction>
+       </actions>
+       <description></description>
+       <attributes>
+         <template-attribute>
+           <name>name</name>
+           <displayName>Name</displayName>
+           <control class="com.cloudbees.hudson.plugins.modeling.controls.TextFieldControl"/>
+         </template-attribute>
+       </attributes>
+       <properties/>
+       <instantiable>true</instantiable>
+       <transformer class="com.cloudbees.hudson.plugins.modeling.transformer.GroovyTemplateModelTransformer">
+         <template>&lt;com.cloudbees.hudson.plugins.folder.Folder plugin=&quot;cloudbees-folder@6.1.2&quot;&gt;
+     &lt;actions&gt;
+     &lt;io.jenkins.blueocean.service.embedded.BlueOceanUrlAction plugin=&quot;blueocean-rest-impl@1.3.0&quot;&gt;
+     &lt;blueOceanUrlObject class=&quot;io.jenkins.blueocean.service.embedded.BlueOceanUrlObjectImpl&quot;&gt;
+     &lt;mappedUrl&gt;blue/organizations/jenkins&lt;/mappedUrl&gt;
+     &lt;/blueOceanUrlObject&gt;
+     &lt;/io.jenkins.blueocean.service.embedded.BlueOceanUrlAction&gt;
+     &lt;/actions&gt;
+       &lt;actions/&gt;
+       &lt;description/&gt;
+       &lt;displayName&gt;\$name&lt;/displayName&gt;
+     &lt;properties&gt;
+     &lt;com.cloudbees.jenkins.plugins.foldersplus.SecurityGrantsFolderProperty plugin=&quot;cloudbees-folders-plus@3.2&quot;&gt;
+     &lt;securityGrants/&gt;
+     &lt;/com.cloudbees.jenkins.plugins.foldersplus.SecurityGrantsFolderProperty&gt;
+     &lt;com.cloudbees.hudson.plugins.folder.properties.EnvVarsFolderProperty plugin=&quot;cloudbees-folders-plus@3.2&quot;&gt;
+     &lt;properties/&gt;
+     &lt;/com.cloudbees.hudson.plugins.folder.properties.EnvVarsFolderProperty&gt;
+     &lt;org.jenkinsci.plugins.pipeline.modeldefinition.config.FolderConfig plugin=&quot;pipeline-model-definition@1.2.2&quot;&gt;
+     &lt;dockerLabel/&gt;
+     &lt;registry plugin=&quot;docker-commons@1.8&quot;/&gt;
+     &lt;/org.jenkinsci.plugins.pipeline.modeldefinition.config.FolderConfig&gt;
+     &lt;com.cloudbees.hudson.plugins.folder.properties.SubItemFilterProperty plugin=&quot;cloudbees-folders-plus@3.2&quot;&gt;
+     &lt;allowedTypes&gt;
+     &lt;string&gt;org.jenkinsci.plugins.workflow.job.WorkflowJob&lt;/string&gt;
+     &lt;string&gt;org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject&lt;/string&gt;
+     &lt;string&gt;jenkins.branch.OrganizationFolder.org.jenkinsci.plugins.github_branch_source.GitHubSCMNavigator&lt;/string&gt;
+     &lt;/allowedTypes&gt;
+     &lt;/com.cloudbees.hudson.plugins.folder.properties.SubItemFilterProperty&gt;
+     &lt;% 
+     if (instance.item != null &amp;&amp; instance.item.properties.get(com.cloudbees.hudson.plugins.folder.properties.FolderProxyGroupContainer) != null) { 
+       println hudson.model.Items.XSTREAM.toXML(instance.item.properties.get(com.cloudbees.hudson.plugins.folder.properties.FolderProxyGroupContainer))
+     } else {
+     %&gt; 
+         &lt;com.cloudbees.hudson.plugins.folder.properties.FolderProxyGroupContainer plugin=&quot;nectar-rbac@5.17&quot;&gt;
+           &lt;groups&gt;
+             &lt;nectar.plugins.rbac.groups.Group&gt;
+               &lt;name&gt;\${name}-group&lt;/name&gt;
+     &lt;% def user = hudson.model.User.current(); %&gt;
+               &lt;member&gt;\${user.id}&lt;/member&gt;
+               &lt;role&gt;folder-admin&lt;/role&gt;
+             &lt;/nectar.plugins.rbac.groups.Group&gt;
+           &lt;/groups&gt;
+           &lt;roleFilters&gt;
+             &lt;string&gt;folder-admin&lt;/string&gt;
+             &lt;string&gt;develop&lt;/string&gt;
+             &lt;string&gt;browse&lt;/string&gt;
+           &lt;/roleFilters&gt;
+         &lt;/com.cloudbees.hudson.plugins.folder.properties.FolderProxyGroupContainer&gt;
+     &lt;% }   %&gt;
+     &lt;/properties&gt;
+     &lt;folderViews class=&quot;com.cloudbees.hudson.plugins.folder.views.DefaultFolderViewHolder&quot;&gt;
+     &lt;views&gt;
+     &lt;hudson.model.AllView&gt;
+     &lt;owner class=&quot;com.cloudbees.hudson.plugins.folder.Folder&quot; reference=&quot;../../../..&quot;/&gt;
+     &lt;name&gt;All&lt;/name&gt;
+     &lt;filterExecutors&gt;false&lt;/filterExecutors&gt;
+     &lt;filterQueue&gt;false&lt;/filterQueue&gt;
+     &lt;properties class=&quot;hudson.model.View\$PropertyList&quot;/&gt;
+     &lt;/hudson.model.AllView&gt;
+     &lt;/views&gt;
+     &lt;tabBar class=&quot;hudson.views.DefaultViewsTabBar&quot;/&gt;
+     &lt;/folderViews&gt;
+     &lt;healthMetrics&gt;
+     &lt;com.cloudbees.hudson.plugins.folder.health.WorstChildHealthMetric&gt;
+     &lt;nonRecursive&gt;false&lt;/nonRecursive&gt;
+     &lt;/com.cloudbees.hudson.plugins.folder.health.WorstChildHealthMetric&gt;
+     &lt;com.cloudbees.hudson.plugins.folder.health.AverageChildHealthMetric plugin=&quot;cloudbees-folders-plus@3.2&quot;/&gt;
+     &lt;com.cloudbees.hudson.plugins.folder.health.JobStatusHealthMetric plugin=&quot;cloudbees-folders-plus@3.2&quot;&gt;
+     &lt;success&gt;true&lt;/success&gt;
+     &lt;failure&gt;true&lt;/failure&gt;
+     &lt;unstable&gt;true&lt;/unstable&gt;
+     &lt;unbuilt&gt;true&lt;/unbuilt&gt;
+     &lt;countVirginJobs&gt;false&lt;/countVirginJobs&gt;
+     &lt;/com.cloudbees.hudson.plugins.folder.health.JobStatusHealthMetric&gt;
+     &lt;com.cloudbees.hudson.plugins.folder.health.ProjectEnabledHealthMetric plugin=&quot;cloudbees-folders-plus@3.2&quot;/&gt;
+     &lt;/healthMetrics&gt;
+     &lt;icon class=&quot;com.cloudbees.hudson.plugins.folder.icons.StockFolderIcon&quot;/&gt;
+     &lt;/com.cloudbees.hudson.plugins.folder.Folder&gt;</template>
+         <sandbox>false</sandbox>
+       </transformer>
+       <initActivities/>
+     </com.cloudbees.hudson.plugins.modeling.impl.folder.FolderTemplate>
+     """
+     template = jenkins.createProjectFromXML(jobName, new ByteArrayInputStream(jobConfigXml.getBytes("UTF-8")));
+     template.save()
+     logger.info("created $jobName")
+     
+     jobName = "workshop"
+     obConfigXml = """
      <com.cloudbees.hudson.plugins.folder.Folder plugin="cloudbees-folder@6.3">
        <actions/>
        <description></description>
