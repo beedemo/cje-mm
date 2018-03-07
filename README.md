@@ -1,5 +1,7 @@
 # CloudBees Jenkins Enterprise 
-## Custom Managed Master Docker Image
+## Custom Managed Master Docker Image for the Introduction to Declarative Pipeline Workshop
+The `intro-pipeline` branch version here provides additional configuration supporting the *Introduction to Declarative Pipeline Workshop*.
+
 This repository provides an example for creating a custom Docker image to use as a [Managed Master](https://go.cloudbees.com/docs/cloudbees-documentation/admin-cje/getting-started/#provision-masters) *Docker image template* to be provisioned by CloudBees Jenkions Operations Center running on the CloudBees Jenkins Enterprise cluster. 
 
 The image is configured to skip Jenkins 2 Setup Wizard, install all of the CloudBees recommended plugins (minus a few) and some additional plugins typically used by CloudBees SAs in demos and workshops, and auto-configure Jenkins. This *config-as-code* results in a streamlined CJE Cluster Managed Master provisioning process.
