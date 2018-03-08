@@ -2,6 +2,7 @@ import jenkins.model.Jenkins
 import hudson.ExtensionList
 
 import com.cloudbees.jenkins.plugins.notification.api.NotificationConfiguration
+import com.cloudbees.jenkins.plugins.notification.spi.Router
 import com.cloudbees.jenkins.plugins.notification.spi.impl.LocalOnlyFallbackRouter
 
 import java.util.logging.Logger
@@ -9,8 +10,9 @@ import java.util.logging.Logger
 String scriptName = "init_61_notification_api.groovy"
 
 Logger logger = Logger.getLogger(scriptName)
+logger.info("running $scriptName")
 
-Jenkins jenkins = Jenkins.getInstance()
+jenkins = Jenkins.getInstance()
 
 File disableScript = new File(jenkins.getRootDir(), ".disable-notification-api-script")
 if (disableScript.exists()) {
