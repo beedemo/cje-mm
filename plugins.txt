@@ -89,6 +89,7 @@ momentjs:1.1.1
 nectar-license:8.9
 nectar-rbac:5.19
 node-iterator-api:1.5.0
+notification-api:1.0
 one-shot-executor:1.2
 operations-center-agent:2.89.0.2
 operations-center-analytics-config:2.89.0.2
@@ -96,8 +97,10 @@ operations-center-analytics-reporter:2.89.0.2
 operations-center-client:2.89.0.2
 operations-center-cloud:2.89.0.2
 operations-center-context:2.89.0.2
+operations-center-notification:1.0
 palace-cloud:2.0.5
 pipeline-build-step:2.7
+pipeline-event-step:1.0
 pipeline-github-lib:1.0
 pipeline-graph-analysis:1.6
 pipeline-input-step:2.8
