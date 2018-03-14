@@ -12,6 +12,7 @@ import nectar.plugins.rbac.strategy.DefaultRoleMatrixAuthorizationConfig
 import nectar.plugins.rbac.strategy.RoleMatrixAuthorizationConfig
 import nectar.plugins.rbac.strategy.RoleMatrixAuthorizationPlugin
 import nectar.plugins.rbac.strategy.RoleMatrixAuthorizationStrategyImpl
+import com.cloudbees.plugins.credentials.CredentialsProvider
 import java.lang.reflect.Field;
 import hudson.scm.SCM;
 import java.util.ArrayList;
@@ -84,6 +85,12 @@ if (AuthorizationStrategy.UNSECURED.equals(authorizationStrategy)) {
              roles.get(p.getId()).add(ROLE_FOLDER_ADMIN)
          }
      }
+     //need to add Credentials related permissions for ROLE_FOLDER_ADMIN
+     roles.get(CredentialsProvider.VIEW.getId()).add(ROLE_FOLDER_ADMIN);
+     roles.get(CredentialsProvider.CREATE.getId()).add(ROLE_FOLDER_ADMIN);
+     roles.get(CredentialsProvider.UPDATE.getId()).add(ROLE_FOLDER_ADMIN);
+     
+     roles.get(Jenkins.READ.getId()).add(ROLE_FOLDER_ADMIN);
      roles.get(Jenkins.READ.getId()).add(ROLE_BROWSE);
      roles.get(Item.DISCOVER.getId()).add(ROLE_BROWSE);
      roles.get(Item.READ.getId()).add(ROLE_BROWSE);
