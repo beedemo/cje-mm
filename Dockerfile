@@ -1,4 +1,4 @@
-FROM cloudbees/cje-mm:2.89.4.2
+FROM cloudbees/cje-mm:2.107.1.2
 
 LABEL maintainer "kmadel@cloudbees.com"
 
@@ -16,7 +16,5 @@ ENV JENKINS_UC http://jenkins-updates.cloudbees.com
 COPY plugins.txt plugins.txt
 COPY jenkins-support /usr/local/bin/jenkins-support
 COPY install-plugins.sh /usr/local/bin/install-plugins.sh
-
-COPY ./jenkins_ref /usr/share/jenkins/ref
 
 RUN /usr/local/bin/install-plugins.sh $(cat plugins.txt)
