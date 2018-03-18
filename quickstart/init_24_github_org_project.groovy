@@ -7,9 +7,13 @@ import jenkins.scm.api.SCMSourceOwner;
 import jenkins.scm.api.SCMSourceOwners;
 import org.jenkinsci.plugins.github_branch_source.GitHubSCMNavigator;
 
+import com.cloudbees.hudson.plugins.folder.Folder
+
 import com.cloudbees.plugins.credentials.CredentialsProvider
 import com.cloudbees.plugins.credentials.common.StandardUsernamePasswordCredentials
 import com.cloudbees.plugins.credentials.CredentialsMatchers
+
+import com.cloudbees.nectar.plugins.skip.SkipFolderProperty
 
 import java.util.logging.Logger
 
@@ -23,23 +27,27 @@ if (disableScript.exists()) {
     return
 }
 
+
+def env = System.getenv()
 def masterName = System.properties.'MASTER_NAME'
-if(masterName != null) {
+
+def credentialsId = env['GITHUB_ORG_FOLDER_CRED_ID']
+if(credentialsId != null && masterName != null) {
     def cbWarProfile = System.properties.'cb.IMProp.warProfiles'
     logger.info("init_24_github_org_project cb.IMProp.warProfiles=$cbWarProfile")
 
-    def credentialsId = masterName
-
     StandardUsernamePasswordCredentials cred = null
 
-    logger.info("about to add basic auth for HttpRequest plugin global config")
+    logger.info("checking for provided credentials based on id of $credentialsId")
     
     List<StandardUsernamePasswordCredentials> candidates = new ArrayList<StandardUsernamePasswordCredentials>();
     candidates.addAll(CredentialsProvider.lookupCredentials(com.cloudbees.plugins.credentials.common.StandardUsernameCredentials.class, Jenkins.instance));
 
     cred = CredentialsMatchers.firstOrNull(candidates, CredentialsMatchers.withId(credentialsId))
-    if ( cred ) {
-        def jobName = cred.description
+    def jobName = env['GITHUB_ORG_FOLDER_REPO_OWNER']
+    if ( cred && jobName ) {
+        def includes = env['GITHUB_ORG_FOLDER_REPO_INCLUDES'] ?: "*"
+        def excludes = env['GITHUB_ORG_FOLDER_REPO_EXCLUDES'] ?: ""
         logger.info("using credential description $jobName for GitHub Org name in init_24_github_org_project script - creating GitHub Org Folder")
         
         println "--> creating $jobName"
@@ -103,6 +111,10 @@ if(masterName != null) {
               <repoOwner>$jobName</repoOwner>
               <credentialsId>$credentialsId</credentialsId>
               <traits>
+                <jenkins.scm.impl.trait.WildcardSCMSourceFilterTrait plugin="scm-api@2.2.6">
+                  <includes>$includes</includes>
+                  <excludes>$excludes</excludes>
+                </jenkins.scm.impl.trait.WildcardSCMSourceFilterTrait>
                 <org.jenkinsci.plugins.github__branch__source.BranchDiscoveryTrait>
                   <strategyId>1</strategyId>
                 </org.jenkinsci.plugins.github__branch__source.BranchDiscoveryTrait>
@@ -131,7 +143,7 @@ if(masterName != null) {
                         <url>
         https://github.com/beedemo/custom-marker-pipelines.git
         </url>
-                        <credentialsId>beedemo-user-github-token</credentialsId>
+                        <credentialsId>$credentialsId</credentialsId>
                       </hudson.plugins.git.UserRemoteConfig>
                     </userRemoteConfigs>
                     <branches>
@@ -159,7 +171,7 @@ if(masterName != null) {
                         <url>
         https://github.com/beedemo/custom-marker-pipelines.git
         </url>
-                        <credentialsId>beedemo-user-github-token</credentialsId>
+                        <credentialsId>$credentialsId</credentialsId>
                       </hudson.plugins.git.UserRemoteConfig>
                     </userRemoteConfigs>
                     <branches>
@@ -180,16 +192,20 @@ if(masterName != null) {
         </jenkins.branch.OrganizationFolder>
         """
         //need to check for: cb.IMProp.warProfiles	bluesteel-core.json and move to bluesteel master folder for jobs to show up in Blue Ocean view
+        def folder
         if(cbWarProfile == 'bluesteel-core.json') {
-            def folder = j.getItemByFullName(masterName)
+            folder = j.getItemByFullName(masterName)
             if (folder == null) {
               println "ERROR: Folder '$masterName' not found"
               return
             }
-            job = folder.createProjectFromXML(jobName, new ByteArrayInputStream(jobConfigXml.getBytes("UTF-8")));
         } else {
-            job = j.createProjectFromXML(jobName, new ByteArrayInputStream(jobConfigXml.getBytes("UTF-8")));
+            folder = j.createProject(Folder.class, "$masterName");
         }
+        // Add skip build to disable automatic build after scan
+        SkipFolderProperty skip = new SkipFolderProperty(System.currentTimeMillis() + 20 * 60 * 1000, 'beedemo-admin');
+        folder.addProperty(skip);
+        job = folder.createProjectFromXML(jobName, new ByteArrayInputStream(jobConfigXml.getBytes("UTF-8")));
         job.save()
         //the following will actually kickoff the initial scanning
         ACL.impersonate(ACL.SYSTEM, new Runnable() {
@@ -207,11 +223,13 @@ if(masterName != null) {
         logger.info("created $jobName")
         //saving job again to create webhook - not sure why it isn't created on initial save
         job.save()
+
+        //create marker file to disable scripts from running twice
+        //but only disable after it has run successfully, allow setting environmental variables post master provisioning
+        disableScript.createNewFile()
     } else {
-        logger.info("System property MASTER_NAME does not match UsernamePassword credential id for init_24_github_org_project script - skipping GitHub Org Folder creation")
+        logger.info("Environment property GITHUB_ORG_FOLDER_CRED_ID does not match UsernamePassword credential id for init_24_github_org_project script - skipping GitHub Org Folder creation")
     }
 } else {
-    logger.info("System property MASTER_NAME NOT set or NOT available for init_24_github_org_project script - skipping GitHub Org Folder creation")
+    logger.info("Environment property GITHUB_ORG_FOLDER_CRED_ID NOT set or NOT available for init_24_github_org_project script - skipping GitHub Org Folder creation")
 }
- //create marker file to disable scripts from running twice
- disableScript.createNewFile()

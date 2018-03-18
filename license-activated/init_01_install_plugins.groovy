@@ -35,7 +35,7 @@ plugins.each { pluginName ->
   }
 }
 
-//kickoff quickstart scripts not that plugins are installed
+//kickoff quickstart scripts once licensed and plugins are installed
 ACL.impersonate(ACL.SYSTEM, new Runnable() {
     @Override
     public void run() {
@@ -43,4 +43,4 @@ ACL.impersonate(ACL.SYSTEM, new Runnable() {
     }
 });
 
-disableScript.createNewFile()
+//disableScript.createNewFile()
