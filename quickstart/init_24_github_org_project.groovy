@@ -29,9 +29,10 @@ if (disableScript.exists()) {
 
 
 def env = System.getenv()
+def masterName = System.properties.'MASTER_NAME'
 
 def credentialsId = env['GITHUB_ORG_FOLDER_CRED_ID']
-if(credentialsId != null) {
+if(credentialsId != null && masterName != null) {
     def cbWarProfile = System.properties.'cb.IMProp.warProfiles'
     logger.info("init_24_github_org_project cb.IMProp.warProfiles=$cbWarProfile")
 
