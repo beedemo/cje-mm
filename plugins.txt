@@ -74,7 +74,6 @@ jenkins-design-language:1.4.2
 jira:2.4.2
 jquery-detached:1.2.1
 jsch:0.1.54.1
-junit:1.23
 ldap:1.20
 mailer:1.20
 mapdb-api:1.0.9.0
