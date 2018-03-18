@@ -52,7 +52,7 @@ display-url-api:2.1.0
 docker-commons:1.11
 docker-traceability:1.2
 docker-workflow:1.13
-dockerhub-notification:2.2.0
+dockerhub-notification:2.2.1
 durable-task:1.16
 email-ext:2.61
 favorite:2.3.1
