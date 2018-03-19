@@ -46,7 +46,7 @@ if(credentialsId != null && masterName != null) {
     cred = CredentialsMatchers.firstOrNull(candidates, CredentialsMatchers.withId(credentialsId))
     def jobName = env['GITHUB_ORG_FOLDER_REPO_OWNER']
     if ( cred && jobName ) {
-        def includes = env['GITHUB_ORG_FOLDER_REPO_INCLUDES'] ?: "*"
+        def includes = env['GITHUB_ORG_FOLDER_REPO_INCLUDES'] ?: "*-$masterName"
         def excludes = env['GITHUB_ORG_FOLDER_REPO_EXCLUDES'] ?: ""
         logger.info("using credential description $jobName for GitHub Org name in init_24_github_org_project script - creating GitHub Org Folder")
         
