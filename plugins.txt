@@ -112,6 +112,7 @@ plain-credentials:1.4
 pubsub-light:1.12
 scm-api:2.2.6
 script-security:1.41
+skip-plugin:4.1
 sse-gateway:1.15
 ssh-credentials:1.13
 structs:1.14
