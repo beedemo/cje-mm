@@ -73,6 +73,7 @@ infradna-backup:3.38.1
 jackson2-api:2.8.11.1
 jenkins-design-language:1.4.2
 jira:2.4.2
+jquery:1.12.4-0
 jquery-detached:1.2.1
 jsch:0.1.54.1
 junit:1.23
@@ -113,6 +114,7 @@ pubsub-light:1.12
 scm-api:2.2.6
 script-security:1.41
 skip-plugin:4.1
+sonar:2.6.1
 sse-gateway:1.15
 ssh-credentials:1.13
 structs:1.14
