@@ -26,13 +26,14 @@ j = Jenkins.getInstance()
 
 //need to get credentials from CJOC as the sonar plugin doesn't support credentials
 StringCredentials cred = null
+String credentialsId = sonar.beedemo
 
 logger.info("checking for provided credentials based on id of $credentialsId")
 
 List<StringCredentials> candidates = new ArrayList<StringCredentials>();
 candidates.addAll(CredentialsProvider.lookupCredentials(org.jenkinsci.plugins.plaincredentials.StringCredentials.class, j.instance));
 
-cred = CredentialsMatchers.firstOrNull(candidates, CredentialsMatchers.withId("sonar.beedemo"))
+cred = CredentialsMatchers.firstOrNull(candidates, CredentialsMatchers.withId(credentialsId))
 
 sonarGlobalConfiguration = new SonarGlobalConfiguration()
 globalConfiguration.setInstallations(new SonarInstallation("beedemo", "https://sonar.k8s.beedemo.net", SQ_5_3_OR_HIGHER, cred.secret.plainText, null, null, null, null, null, null, null, null, null))
