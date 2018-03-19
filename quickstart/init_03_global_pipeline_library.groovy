@@ -17,7 +17,7 @@ if (disableScript.exists()) {
 
 GlobalLibraries globalLibs = GlobalConfiguration.all().get(GlobalLibraries.class)
 
-SCMSource scm = new org.jenkinsci.plugins.github_branch_source.GitHubSCMSource(null, null, "SAME", "beedemo-user-github-token", "beedemo", "workflowLibs")
+SCMSource scm = new org.jenkinsci.plugins.github_branch_source.GitHubSCMSource(null, null, "SAME", "beedemo-user-github-token", "kypseli", "pipeline-library")
 LibraryRetriever libRetriever = new SCMSourceRetriever(scm)
 LibraryConfiguration libConfig = new LibraryConfiguration("BeedemoLibs", libRetriever)
 libConfig.setDefaultVersion("master")
