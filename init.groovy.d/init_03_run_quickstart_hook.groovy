@@ -17,7 +17,8 @@ def env = System.getenv()
 //allows re-running quickstart scripts that may have required a restart
 def runQuickstart = env['RUN_QUICKSTART_HOOK']
 if(runQuickstart != null) {
-    //kickoff quickstart scripts once licensed and plugins are installed
+    logger.info("RUN_QUICKSTART_HOOK is set so triggering quickstart GroovyHookScript")
+    //kickoff quickstart scripts 
     ACL.impersonate(ACL.SYSTEM, new Runnable() {
         @Override
         public void run() {

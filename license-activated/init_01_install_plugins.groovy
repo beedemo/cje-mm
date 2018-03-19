@@ -1,4 +1,5 @@
 import jenkins.model.Jenkins
+import hudson.ExtensionList
 
 import java.nio.file.Path
 import java.nio.file.Paths
@@ -21,6 +22,8 @@ if (disableScript.exists()) {
 logger.info("Installing Suggested CJE MM Plugins")
 
 Jenkins jenkins = Jenkins.getInstance()
+
+ExtensionList.lookupSingleton(com.cloudbees.jenkins.support.impl.cloudbees.TcpSlaveAgentListenerMonitor.class).disable(true)
 
 Path filePath = Paths.get('/var/jenkins_home/license-activated-or-renewed-after-expiration.groovy.d/cje_plugins.txt')
 def plugins = filePath.toFile() as String[]
