@@ -35,7 +35,7 @@ candidates.addAll(CredentialsProvider.lookupCredentials(org.jenkinsci.plugins.pl
 
 cred = CredentialsMatchers.firstOrNull(candidates, CredentialsMatchers.withId(credentialsId))
 
-def sonarGlobalConfiguration = new SonarGlobalConfiguration()
+def sonarGlobalConfiguration = GlobalConfiguration.all().get(SonarGlobalConfiguration.class)
 sonarGlobalConfiguration.setInstallations(new SonarInstallation("beedemo", "https://sonar.k8s.beedemo.net", SQ_5_3_OR_HIGHER, cred.secret.plainText, null, null, null, null, null, null, null, null, null))
 
 logger.info("Done Configuring Sonarqube")
