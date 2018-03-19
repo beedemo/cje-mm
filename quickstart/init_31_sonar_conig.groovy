@@ -1,4 +1,5 @@
 import jenkins.model.Jenkins
+import jenkins.model.GlobalConfiguration
 
 import com.cloudbees.plugins.credentials.CredentialsProvider
 import org.jenkinsci.plugins.plaincredentials.StringCredentials
