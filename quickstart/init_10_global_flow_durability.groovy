@@ -16,10 +16,10 @@ if (disableScript.exists()) {
     return
 }
 
-logger.info("init_10_global_flow_durability - setting Pipeline Durability to PERFORMANCE_OPTIMIZED")
+logger.info("init_10_global_flow_durability - setting Pipeline Durability to SURVIVABLE_NONATOMIC")
 GlobalDefaultFlowDurabilityLevel.DescriptorImpl level = jenkins.getExtensionList(GlobalDefaultFlowDurabilityLevel.DescriptorImpl.class).get(0);
-level.setDurabilityHint(FlowDurabilityHint.PERFORMANCE_OPTIMIZED);
-logger.info("init_10_global_flow_durability - Pipeline Durability set to PERFORMANCE_OPTIMIZED")
+level.setDurabilityHint(FlowDurabilityHint.SURVIVABLE_NONATOMIC);
+logger.info("init_10_global_flow_durability - Pipeline Durability set to SURVIVABLE_NONATOMIC")
 
 //create marker file to disable scripts from running twice
 disableScript.createNewFile()
