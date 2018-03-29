@@ -76,7 +76,7 @@ jira:2.4.2
 jquery:1.12.4-0
 jquery-detached:1.2.1
 jsch:0.1.54.1
-junit:1.24
+junit:1.23
 ldap:1.20
 mailer:1.20
 mapdb-api:1.0.9.0
@@ -111,7 +111,7 @@ pipeline-rest-api:2.9
 pipeline-stage-step:2.2
 pipeline-stage-tags-metadata:1.2.7
 pipeline-stage-view:2.9
-pipeline-utility-steps:2.0.1
+pipeline-utility-steps:2.0.2
 plain-credentials:1.4
 pubsub-light:1.12
 scm-api:2.2.6
