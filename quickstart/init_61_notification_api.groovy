@@ -3,7 +3,7 @@ import hudson.ExtensionList
 
 import com.cloudbees.jenkins.plugins.notification.api.NotificationConfiguration
 import com.cloudbees.jenkins.plugins.notification.spi.Router
-import com.cloudbees.opscenter.plugins.notification.OperationsCenterRouter
+import com.cloudbees.jenkins.plugins.notification.spi.impl.LocalOnlyFallbackRouter
 
 import java.util.logging.Logger
 
@@ -21,7 +21,7 @@ if (disableScript.exists()) {
 }
 
 NotificationConfiguration config = ExtensionList.lookupSingleton(NotificationConfiguration.class);
-Router r = new OperationsCenterRouter();
+Router r = new LocalOnlyFallbackRouter();
         config.setRouter(r);
         config.setEnabled(true);
         config.onLoaded();
