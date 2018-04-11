@@ -21,7 +21,7 @@ SCMSource scm = new org.jenkinsci.plugins.github_branch_source.GitHubSCMSource(n
 LibraryRetriever libRetriever = new SCMSourceRetriever(scm)
 LibraryConfiguration libConfig = new LibraryConfiguration("SharedLibs", libRetriever)
 libConfig.setDefaultVersion("master")
-libConfig.setImplicit(true)
+libConfig.setImplicit(false)
 
 List<LibraryConfiguration> libraries= new ArrayList<LibraryConfiguration>()
 libraries.add(libConfig)
