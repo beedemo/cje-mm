@@ -21,4 +21,4 @@ COPY install-plugins.sh /usr/local/bin/install-plugins.sh
 
 COPY ./jenkins_ref /usr/share/jenkins/ref
 
-RUN /usr/local/bin/install-plugins.sh $(cat plugins.txt)
+RUN /usr/local/bin/install-plugins.sh hipchat:2.1.1 pipeline-utility-steps:2.0.2 skip-plugin:4.1 timestamper:1.8.8 
