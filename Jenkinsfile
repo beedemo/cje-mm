@@ -13,13 +13,8 @@ def label = "kaniko-${UUID.randomUUID().toString()}"
      command:
      - cat
      tty: true
-     volumeMounts:
+     imagePullSecrets:
        - name: jenkins-docker-cfg
-         mountPath: /root/.docker
-   volumes:
-     - name: jenkins-docker-cfg
-       secret:
-         secretName: jenkins-docker-cfg
  """
    ) {
 
