@@ -2,10 +2,11 @@ FROM cloudbees/cje-mm:2.107.2.1
 
 LABEL maintainer "kmadel@cloudbees.com"
 
+USER jenkins
+
 #skip setup wizard and disable CLI
 ENV JVM_OPTS -Djenkins.install.runSetupWizard=false -Djenkins.CLI.disabled=true -server
 ENV TZ="/usr/share/zoneinfo/America/New_York"
-ENV user=jenkins
 
 #Jenkins system configuration via init groovy scripts - see https://wiki.jenkins-ci.org/display/JENKINS/Configuring+Jenkins+upon+start+up 
 COPY ./init.groovy.d/* /usr/share/jenkins/ref/init.groovy.d/
@@ -20,4 +21,4 @@ COPY install-plugins.sh /usr/local/bin/install-plugins.sh
 
 COPY ./jenkins_ref /usr/share/jenkins/ref
 
-RUN /usr/local/bin/install-plugins.sh $(cat plugins.txt)
+#RUN /usr/local/bin/install-plugins.sh $(cat plugins.txt)

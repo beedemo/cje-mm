@@ -28,10 +28,9 @@ def label = "kaniko-${UUID.randomUUID().toString()}"
 
    node(label) {
      stage('Build with Kaniko') {
-       //checkout scm
-       git 'https://github.com/beedemo/jenkins-dind-agent.git'
+       checkout scm
        container('kaniko') {
-           sh '/kaniko/executor -c . --destination=beedemo/jenkins-dind-agent:kaniko-1'
+           sh '/kaniko/executor -c . --destination=beedemo/cje-mm:kaniko-1'
        }
      }
    }
