@@ -30,7 +30,7 @@ def label = "kaniko-${UUID.randomUUID().toString()}"
      stage('Build with Kaniko') {
        checkout scm
        container('kaniko') {
-           sh '/kaniko/executor -c . --destination=beedemo/jnlp-agent:kaniko-1'
+           sh '/kaniko/executor -c . --destination=beedemo/cje-mm:kaniko-1'
        }
      }
    }
