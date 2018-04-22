@@ -8,21 +8,21 @@ def label = "kaniko-${UUID.randomUUID().toString()}"
  spec:
    containers:
    - name: kaniko
-     image: csanchez/kaniko:jenkins
+     image: csanchez/kaniko:jenkins # we need a patched version of kaniko for now
      imagePullPolicy: Always
      command:
      - cat
      tty: true
      volumeMounts:
-     - name: jenkins-docker-cfg
-       mountPath: /root/.docker
+       - name: jenkins-docker-cfg
+         mountPath: /root/.docker
    volumes:
-   - name: jenkins-docker-cfg
-     secret:
-       secretName: jenkins-docker-cfg
-       items:
+     - name: jenkins-docker-cfg
+       secret:
+         secretName: jenkins-docker-cfg
+         items:
          - key: .dockerconfigjson
-         path: config.json
+           path: config.json
  """
    ) {
 
