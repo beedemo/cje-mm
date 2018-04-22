@@ -28,6 +28,7 @@ def label = "kaniko-${UUID.randomUUID().toString()}"
        //checkout scm
        git 'https://github.com/jenkinsci/docker-jnlp-slave.git'
        container('kaniko') {
+           sleep 100
            sh '/kaniko/executor -c . --destination=beedemo/jnlp-agent:kaniko-1'
        }
      }
