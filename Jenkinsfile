@@ -8,7 +8,7 @@ def label = "kaniko-${UUID.randomUUID().toString()}"
  spec:
    containers:
    - name: kaniko
-     image: csanchez/kaniko:jenkins # we need a patched version of kaniko for now
+     image: gcr.io/kaniko-project/executor:7ceba77ef0308652c7a2e884aaa86011d92906a7
      imagePullPolicy: Always
      command:
      - cat
