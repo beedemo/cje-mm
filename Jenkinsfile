@@ -8,7 +8,7 @@ def label = "kaniko-${UUID.randomUUID().toString()}"
  spec:
    containers:
    - name: kaniko
-     image: gcr.io/kaniko-project/executor:7ceba77ef0308652c7a2e884aaa86011d92906a7
+     image: csanchez/kaniko:jenkins # we need a patched version of kaniko for now
      imagePullPolicy: Always
      command:
      - cat
@@ -28,9 +28,10 @@ def label = "kaniko-${UUID.randomUUID().toString()}"
 
    node(label) {
      stage('Build with Kaniko') {
-       checkout scm
+       //checkout scm
+       git 'https://github.com/beedemo/jenkins-dind-agent.git'
        container('kaniko') {
-           sh '/kaniko/executor -c . --destination=beedemo/cje-mm:kaniko-1'
+           sh '/kaniko/executor -c . --destination=beedemo/jenkins-dind-agent:kaniko-1'
        }
      }
    }
