@@ -21,4 +21,4 @@ COPY install-plugins.sh /usr/local/bin/install-plugins.sh
 
 COPY ./jenkins_ref /usr/share/jenkins/ref
 
-#RUN /usr/local/bin/install-plugins.sh $(cat plugins.txt)
+RUN /usr/local/bin/install-plugins.sh $(cat plugins.txt)
