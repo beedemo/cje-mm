@@ -1,7 +1,7 @@
 #!groovy
 def label = "kaniko-${UUID.randomUUID().toString()}"
 
- podTemplate(name: 'kaniko', namespace: 'cje', label: label, yaml: """
+ podTemplate(name: 'kaniko', label: label, yaml: """
  kind: Pod
  metadata:
    name: kaniko
