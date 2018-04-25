@@ -1,7 +1,7 @@
 #!groovy
 def label = "kaniko-${UUID.randomUUID().toString()}"
 
- podTemplate(name: 'kaniko', label: label, yaml: """
+ podTemplate(name: 'kaniko', namespace: 'cje', label: label, yaml: """
  kind: Pod
  metadata:
    name: kaniko
@@ -30,7 +30,7 @@ def label = "kaniko-${UUID.randomUUID().toString()}"
      stage('Build with Kaniko') {
        checkout scm
        container('kaniko') {
-           sh '/kaniko/executor -c . --destination=beedemo/cje-mm:kaniko-2'
+           sh '/kaniko/executor -c . --destination=beedemo/cje-mm:kaniko-3'
        }
      }
    }
