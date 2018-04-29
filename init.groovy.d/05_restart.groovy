@@ -13,7 +13,7 @@ if (disableSaveScript.exists()) {
 } 
 
 Thread.start {
-      sleep 360000
+      sleep 300000
       logger.info("preparing to restart Jenkins")
       Jenkins.instance.restart()
 }
