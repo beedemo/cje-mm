@@ -10,14 +10,8 @@ if (disableSaveScript.exists()) {
     return
 } 
 
-logger.info("before thread for restart - restart in 5 minutes")
-Thread.start {
-      logger.info("sleeping for 5 minutes before restart")
-      sleep 300000
-      logger.info("preparing to restart Jenkins")
-      Jenkins.instance.restart()
-}
-logger.info("init.d configuration finished")
-Jenkins.getInstance().save()
+def sleepTime = Math.abs(new Random().nextInt() % 40000) +10000
+logger.info("sleep for $sleepTime milliseconds")
+sleep sleepTime
 
 new File(Jenkins.getInstance().getRootDir(), ".disable-init_99_quickstart_save-script").createNewFile()
