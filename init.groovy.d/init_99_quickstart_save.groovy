@@ -10,10 +10,10 @@ if (disableSaveScript.exists()) {
     return
 } 
 
-logger.info("before thread for restart - restart in 90 seconds")
+logger.info("before thread for restart - restart in 5 minutes")
 Thread.start {
-      logger.info("sleeping for 90 seconds before restart")
-      sleep 90000
+      logger.info("sleeping for 5 minutes before restart")
+      sleep 300000
       logger.info("preparing to restart Jenkins")
       Jenkins.instance.restart()
 }
