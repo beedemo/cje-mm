@@ -8,3 +8,8 @@ pipeline-stage-step:2.2
 pipeline-stage-view:2.9
 pipeline-utility-steps:2.0.2
 workflow-cps-global-lib:2.9
+workflow-cps-checkpoint:2.4
+momentjs:1.1.1
+handlebars:1.1.1
+cloudbees-template:4.28
+
