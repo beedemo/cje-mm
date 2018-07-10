@@ -11,5 +11,5 @@ workflow-cps-global-lib:2.9
 workflow-cps-checkpoint:2.7
 momentjs:1.1.1
 handlebars:1.1.1
-cloudbees-template:4.28
+cloudbees-template:4.36
 
